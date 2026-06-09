@@ -1,0 +1,40 @@
+Checking DFT rules for 'alu' module under 'muxed_scan' style
+Processing techlib FreePDK45_lib_v1.0 for muxed_scan scan cells
+  Identified a usable, flop scan cell 'SDFFR_X1' 
+	 active clock edge:  rising
+  Identified a usable, flop scan cell 'SDFFR_X2' 
+	 active clock edge:  rising
+  Identified a usable, flop scan cell 'SDFF_X1' 
+	 active clock edge:  rising
+  Identified a usable, flop scan cell 'SDFF_X2' 
+	 active clock edge:  rising
+Identified 4 valid usable scan cells
+Detected 0 DFT rule violation(s)
+	Summary of check_dft_rules
+	**************************
+	Number of usable scan cells: 4
+Clock Rule Violations:
+---------------------
+	  Internally driven clock net: 0
+	      Tied constant clock net: 0
+	           Undriven clock net: 0
+	Conflicting async & clock net: 0
+	              Misc. clock net: 0
+
+Async. set/reset Rule Violations:
+--------------------------------
+	Internally driven async net: 0
+	      Tied active async net: 0
+	         Undriven async net: 0
+	            Misc. async net: 0
+
+   Total number of DFT violations: 0
+
+Total number of Test Clock Domains: 1
+  DFT Test Clock Domain: CLK
+	Test Clock 'CLK' (Positive edge) has  11 registers
+Number of user specified non-Scan registers:   0
+    Number of registers that fail DFT rules:   0
+    Number of registers that pass DFT rules:  11
+Percentage of total registers that are scannable: 100%
+
