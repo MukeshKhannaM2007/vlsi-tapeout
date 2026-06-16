@@ -1,7 +1,6 @@
+# VLSI Tapeout — RTL to GDSII Flow
 
-# VLSI Tapeout — RTL to Synthesis Flow
-
-Implementation of digital designs through a complete RTL to Synthesis + DFT flow using Cadence Genus EDA tool.
+Implementation of digital designs through a complete RTL to GDSII physical design flow using Cadence EDA tools.
 
 ## Author
 
@@ -19,8 +18,8 @@ vlsi-tapeout/
 ├── RTL/          # RTL design and testbench files
 ├── synthesis/    # Genus synthesis scripts and SDC constraints
 ├── netlists/     # Synthesized gate-level netlists
-├── reports/      # Area, timing and power reports
-└── dft/          # DFT scan netlist and scripts
+├── dft/          # DFT scan netlist and scripts
+└── innovus/      # Final GDSII layout files
 ```
 
 ---
@@ -30,8 +29,8 @@ vlsi-tapeout/
 | Design | Description | Status |
 |---|---|---|
 | ALU | 8-bit Arithmetic Logic Unit | ✅ Completed |
-| 4-bit Multiplier | 4-bit binary multiplier | 🔄 In Progress |
-| 8-bit Multiplier | 8-bit binary multiplier | 🔄 In Progress |
+| 4-bit Multiplier | 4-bit binary multiplier | ✅ Completed |
+| 8-bit Multiplier | 8-bit binary multiplier | ✅ Completed |
 
 ---
 
@@ -42,31 +41,34 @@ RTL Design (.v)
       ↓
 Simulation & Verification (Cadence Xcelium)
       ↓
-Logic Synthesis (Cadence Genus)
+Code Coverage Analysis (Cadence IMC)
       ↓
-DFT — Scan Insertion (Cadence Genus)
+Logic Synthesis + DFT Scan Insertion (Cadence Genus)
       ↓
-Gate Level Netlist (.v)
+Physical Design — Floorplan, Placement, CTS, Routing (Cadence Innovus)
+      ↓
+Final GDSII Layout (.gds)
 ```
 
 ---
 
-## ALU Synthesis Results
+## Synthesis Results (Cadence Genus)
 
-| Parameter | Value |
-|---|---|
-| Technology | NanGate 45nm |
-| Clock Period | 10 ns |
-| Total Cell Area | 220.248 nm² |
-| Worst Negative Slack (WNS) | 3771 ps (MET ✅) |
-| Total Power | 100 µW |
+| Design | Technology | Clock Period | Cell Area | Worst Slack | DFT |
+|---|---|---|---|---|---|
+| ALU | NanGate 45nm | 10 ns | 220.248 nm² | 3771 ps (MET ✅) | 11 Scan FFs ✅ |
+| 4-bit Multiplier | NanGate 45nm | 10 ns | — | — | ✅ |
+| 8-bit Multiplier | NanGate 45nm | 10 ns | — | — | ✅ |
 
-### DFT Results
+---
 
-| Parameter | Value |
-|---|---|
-| Scan Flip-Flops | 11 |
-| Scan Chain | Inserted ✅ |
+## Physical Design Results (Cadence Innovus)
+
+| Design | Cell Area | Worst Slack | DRC Violations |
+|---|---|---|---|
+| ALU | 220.048 nm² | 1.3 ns (MET ✅) | None ✅ |
+| 4-bit Multiplier | 122.360 nm² | ~1.0 ns (MET ✅) | None ✅ |
+| 8-bit Multiplier | 483.588 nm² | ~0.039 ns (MET ✅) | None ✅ |
 
 ---
 
@@ -74,8 +76,10 @@ Gate Level Netlist (.v)
 
 | Tool | Purpose |
 |---|---|
-| Cadence Genus 20.11 | Logic synthesis and DFT |
-| Cadence Xcelium | RTL simulation |
+| Cadence Xcelium | RTL simulation and functional verification |
+| Cadence IMC | Code coverage analysis |
+| Cadence Genus | Logic synthesis and DFT scan insertion |
+| Cadence Innovus | Physical design — placement, CTS, routing |
 | NanGate 45nm PDK | Standard cell library |
 | Verilog HDL | Hardware description language |
 
@@ -83,4 +87,4 @@ Gate Level Netlist (.v)
 
 ## About
 
-This repository documents the RTL to Synthesis + DFT flow implemented as part of the VLSI tapeout coursework at Chennai Institute of Technology. The flow covers RTL design, functional simulation, logic synthesis, and Design for Testability (DFT) using industry-standard Cadence EDA tools.
+This repository documents the complete RTL to GDSII physical design flow implemented as part of the VLSI tapeout coursework at Chennai Institute of Technology. The flow covers RTL design, functional simulation, code coverage, logic synthesis, DFT scan insertion and physical design using industry-standard Cadence EDA tools.
